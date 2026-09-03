@@ -78,11 +78,11 @@ export async function submitAnswer(
   try {
     const { data } = await client.auth.getSession();
     const token = data.session?.access_token;
-    if (token) {
+    if (token && submissionId) {
       await fetch("/api/public/notify-submission", {
         method: "POST",
         headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
-        body: JSON.stringify({ submissionId: inserted.id }),
+        body: JSON.stringify({ submissionId }),
       });
     }
   } catch {
